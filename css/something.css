@@ -1,0 +1,12 @@
+#charset "utf-8";
+#container{
+ color: red;
+}
+#canvas{
+    height: 100%;
+    width: 100%;
+}
+
+#yolo{
+    text-transform: capitalize;
+}
