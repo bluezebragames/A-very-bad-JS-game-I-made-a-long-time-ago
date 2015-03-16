@@ -11,18 +11,18 @@ var main = function () {
 
 var toggle = function () {
     "use strict";
-    if (move === 0) {move = .1; } else {move = 0; }
+    if (move === 0) {move = 0.1; } else {move = 0; }
     counter = x;
     repeat();
 };
 
 repeat = function () {
     "use strict";
-    counter += .1;
+    counter += 0.1;
     var p = document.getElementById("does this work");
     p.innerHTML = move.toString() + " " + x.toString() + " " + counter.toString();
     x += move;
-    
+
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.fillRect(x, 0, 50, 50);
     if (x > ctx.canvas.width - 50) {
@@ -32,5 +32,5 @@ repeat = function () {
         x -= ctx.canvas.width;
     }
     setTimeout(repeat, 10);
-    
+
 };
