@@ -6,21 +6,19 @@ var main = function () {
     var canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
     ctx.fillRect(0, 0, 50, 50);
-    //setTimeout(main, 10);
+    setTimeout(repeat, 10);
 };
 
-var toggle = function () {
+var stop = function () {
     "use strict";
-    if (move === 0) {move = 0.1; } else {move = 0; }
-    counter = x;
-    repeat();
+    move = 0;
 };
 
 repeat = function () {
     "use strict";
-    counter += 0.1;
-    var p = document.getElementById("does this work");
-    p.innerHTML = move.toString() + " " + x.toString() + " " + counter.toString();
+    //counter += 0.1;
+    //var p = document.getElementById("does this work");
+    //p.innerHTML = move.toString() + " " + x.toString() + " " + counter.toString();
     x += move;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -38,7 +36,6 @@ repeat = function () {
         x += ctx.canvas.width;
     }
     setTimeout(repeat, 10);
-
 };
 
 
