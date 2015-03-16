@@ -28,9 +28,33 @@ repeat = function () {
     if (x > ctx.canvas.width - 50) {
         ctx.fillRect(x - ctx.canvas.width, 0, 50, 50);
     }
+    if (x < 50) {
+        ctx.fillRect(x + ctx.canvas.width, 0, 50, 50);
+    }
     if (x > ctx.canvas.width) {
         x -= ctx.canvas.width;
     }
+    if (x < 0) {
+        x += ctx.canvas.width;
+    }
     setTimeout(repeat, 10);
 
+};
+
+
+var keyHandle = function (event) {
+    "use strict";
+    if (event.keyCode === 37) {
+        //alert("left key pressed");
+        move = -1;
+    } else if (event.keyCode === 39) {
+        //alert("right key pressed");
+        move = 1;
+    }
+};
+
+document.addEventListener('keydown', keyHandle, true);
+
+var gameLoop = function () {
+    "use strict";
 };
