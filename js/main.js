@@ -1,4 +1,4 @@
-var x = 0, y, xvelocity = 0, yvelocity = 0, xaccel = 0, yaccel = 0, ctx, repeat, move, counter = 0, gravity = 0.3, canjump;
+var x = 0, y, xvelocity = 0, yvelocity = 0, xaccel = 0, yaccel = 0, ctx, repeat, move, counter = 0, gravity = 0.3, canjump, groundHeight = 5, keyHandle, platformy = 145, platformx = 0, platformHeight = 5, platformxVelocity = -1, platformNexty;
 var pWidth = 10, pHeight = 10;
 
 var main = function () {
@@ -6,9 +6,11 @@ var main = function () {
     move = 0;
     var canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
-    y = ctx.canvas.height - pHeight;
+    y = platformy;
     ctx.fillRect(x, y, pWidth, pHeight);
+    document.addEventListener('keydown', keyHandle, true);
     setTimeout(repeat, 10);
+    platformNexty = Math.floor(Math.min(Math.max((80 * (Math.random() - 0.5)) + platformy, 0), ctx.canvas.height - platformHeight));
 };
 
 var stop = function () {
@@ -17,17 +19,21 @@ var stop = function () {
     xaccel = 0;
     yvelocity = 0;
     yaccel = 0;
+    platformxVelocity = 0;
 };
 
 repeat = function () {
     "use strict";
-    xvelocity += xaccel;
-    yvelocity += yaccel;
+    //alert("repeat");
+    setTimeout(repeat, 10);
+    var p = document.getElementById('does this work');
+    p.innerHTML = platformNexty;
     x += xvelocity;
     y += yvelocity;
+    xvelocity += xaccel;
+    yvelocity += yaccel;
+    platformx += platformxVelocity;
 
-    var p = document.getElementById('does this work');
-    p.innerHTML = y;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.fillRect(x, y, pWidth, pHeight);
@@ -43,9 +49,18 @@ repeat = function () {
     if (x < 0) {
         x += ctx.canvas.width;
     }
-    if (y !== ctx.canvas.height - pHeight) {
-        if (y > ctx.canvas.height - pHeight) {
-            y = ctx.canvas.height - pHeight;
+    //ctx.fillRect(0, ctx.canvas.height - groundHeight, ctx.canvas.width, groundHeight);
+
+
+    ctx.fillRect(platformx, platformy, ctx.canvas.width, platformHeight);
+    // and the next platform too
+    ctx.fillRect(platformx + ctx.canvas.width, platformNexty, ctx.canvas.width, platformHeight);
+
+
+    // jumping stuph
+    if (y !== platformy - pHeight) {
+        if (y > platformy - pHeight) {
+            y = platformy - pHeight;
             yaccel = 0;
             yvelocity = 0;
             canjump = true;
@@ -59,24 +74,31 @@ repeat = function () {
         canjump = true;
     }
 
-    setTimeout(repeat, 10);
+
+    // finding out max height
+    if (y !== 135 && yvelocity <= 0.5 && yvelocity >= -0.5) {
+        p.innerHTML = 135 - y;
+    }
 };
 
 
-var keyHandle = function (event) {
+keyHandle = function (event) {
     "use strict";
-    if (event.keyCode === 37) {
+    /*if (event.keyCode === 37) {
         //alert("left key pressed");
-        xvelocity = -1.5;
+        //xvelocity = -1.5;
+        //var p = document.getElementById('does this work');
+        //p.innerHTML = y + " " + xvelocity;
     } else if (event.keyCode === 39) {
         //alert("right key pressed");
-        xvelocity = 1.5;
-    } else if (event.keyCode === 32 && canjump) {
+        //xvelocity = 1.5;
+    } else */
+    if (event.keyCode === 32 && canjump) {
         yvelocity = -5;
     }
 };
 
-document.addEventListener('keydown', keyHandle, true);
+
 
 var gameLoop = function () {
     "use strict";
