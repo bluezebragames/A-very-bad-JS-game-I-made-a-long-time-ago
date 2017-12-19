@@ -1,4 +1,4 @@
-# Everything
+# A very bad JS game I made a long time ago
 
 So I think this was a simple JavaScript game I made in high school for Winterim, with Devon.
 
